@@ -13,6 +13,7 @@ $(window).on("beforeunload", function () {
 });
 
 // --- GLOBAL - CUSTOM EASE
+let panelEase = CustomEase.create("panelEase", "0.19, 1, 0.22, 1");
 let buttonEase = CustomEase.create("buttonEase", "0.785, 0.135, 0.15, 0.86");
 
 // --- GLOBAL - STATS COUNTER
