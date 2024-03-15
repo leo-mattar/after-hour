@@ -1,4 +1,4 @@
-gsap.registerPlugin(ScrollTrigger, Flip, CustomEase, DrawSVGPlugin, ScrollToPlugin);
+gsap.registerPlugin(ScrollTrigger, CustomEase, DrawSVGPlugin, ScrollToPlugin);
 
 gsap.config({
   nullTargetWarn: false,
@@ -13,7 +13,6 @@ $(window).on("beforeunload", function () {
 });
 
 // --- GLOBAL - CUSTOM EASE
-let panelEase = CustomEase.create("moxieEase", "0.19, 1, 0.22, 1");
 let buttonEase = CustomEase.create("buttonEase", "0.785, 0.135, 0.15, 0.86");
 
 // --- GLOBAL - STATS COUNTER
@@ -21,8 +20,10 @@ function statsCounter() {
   $("[counter]").each(function (index) {
     let thisId = "countup" + index;
     $(this).attr("id", thisId);
-    let startNumber = $(this).attr("start-number") !== undefined ? +$(this).attr(
-      "start-number") : 0;
+    let startNumber =
+      $(this).attr("start-number") !== undefined
+        ? +$(this).attr("start-number")
+        : 0;
     let endNumber = +$(this).attr("final-number");
     let decimals = +$(this).attr("decimals");
     let duration = $(this).attr("count-duration");
@@ -46,44 +47,48 @@ function statsCounter() {
 
 // --- GLOBAL - PARALLAX
 function parallax() {
-  gsap.utils.toArray('[parallax-container]').forEach(container => {
-    const img = container.querySelector('.c-img');
+  gsap.utils.toArray("[parallax-container]").forEach((container) => {
+    const img = container.querySelector(".c-img");
 
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: container,
         scrub: true,
-      }
+      },
     });
 
-    tl.fromTo(img, {
-      yPercent: -5,
-      ease: 'none'
-    }, {
-      yPercent: 5,
-      ease: 'none'
-    });
+    tl.fromTo(
+      img,
+      {
+        yPercent: -5,
+        ease: "none",
+      },
+      {
+        yPercent: 5,
+        ease: "none",
+      }
+    );
   });
 }
 
 // CURRENT YEAR
-let currentYear = document.querySelector('[current-year]');
+let currentYear = document.querySelector("[current-year]");
 if (currentYear) {
   currentYear.innerHTML = new Date().getFullYear();
 }
 
 // --- HERO SECTION - BACKGROUND MOVEMENT
 function heroBackgroundMovement() {
-  let heroBg = document.querySelector('.c-hero-bg');
-  let section = document.querySelector('.c-section.hm-hero');
+  let heroBg = document.querySelector(".c-hero-bg");
+  let section = document.querySelector(".c-section.hm-hero");
   let sectionWidth = section.offsetWidth;
 
-  section.addEventListener('mousemove', function (event) {
+  section.addEventListener("mousemove", function (event) {
     let mouseX = event.pageX;
     let percentX = (mouseX / sectionWidth) * 100;
     let moveAmount = (percentX - 50) * 0.015;
 
-    gsap.to(heroBg, { duration: 0.8, x: moveAmount + '%', ease: 'power3.out' });
+    gsap.to(heroBg, { duration: 0.8, x: moveAmount + "%", ease: "power3.out" });
   });
 }
 
@@ -129,12 +134,11 @@ function superAppParallax() {
 
 // --- MOMENTUM LINE ANIMATION
 function momentumLine() {
-
   let tl = gsap.timeline({
     paused: true,
     defaults: {
       duration: 1.4,
-      ease: "expo.out"
+      ease: "expo.out",
     },
   });
 
@@ -142,13 +146,17 @@ function momentumLine() {
   gsap.set(".c-info-graph-dot", { transformOrigin: "center center" });
 
   tl.from(".c-info-graph path", { drawSVG: 0, ease: "linear" });
-  tl.from(".c-img-contain.rocket", {
-    duration: 0.6,
-    ease: "power2.out",
-    autoAlpha: 0,
-    x: "-3.5em",
-    y: "1.25em"
-  }, ">-0.2");
+  tl.from(
+    ".c-img-contain.rocket",
+    {
+      duration: 0.6,
+      ease: "power2.out",
+      autoAlpha: 0,
+      x: "-3.5em",
+      y: "1.25em",
+    },
+    ">-0.2"
+  );
 
   ScrollTrigger.create({
     trigger: ".c-info-item.graph",
@@ -165,11 +173,11 @@ function faqAccordion() {
   $(".c-faq-item").each(function () {
     let tl = gsap.timeline({
       paused: true,
-      defaults: { duration: 0.6, ease: "power2.inOut" }
+      defaults: { duration: 0.6, ease: "power2.inOut" },
     });
 
     let accordionResponse = $(this).find(".c-faq-response");
-    let accordionArrow = $(this).find(".c-icon.faq")
+    let accordionArrow = $(this).find(".c-icon.faq");
 
     tl.to(accordionResponse, { height: "auto" });
     tl.to(accordionArrow, { rotation: 180, opacity: 1 }, 0);
@@ -194,13 +202,20 @@ function faqAccordion() {
 function footerMarquee() {
   let tl = gsap.timeline({ repeat: -1 });
 
-  tl.to(".c-footer-marquee-item", { xPercent: -100, duration: 70, ease: "none" });
+  tl.to(".c-footer-marquee-item", {
+    xPercent: -100,
+    duration: 70,
+    ease: "none",
+  });
 }
 
 // --- MAIN CTA - HOVER EFFECT
 function mainCtaHover() {
   $(".c-btn.main-cta").each(function () {
-    let tl = gsap.timeline({ paused: true, defaults: { ease: buttonEase, duration: 0.6 } });
+    let tl = gsap.timeline({
+      paused: true,
+      defaults: { ease: buttonEase, duration: 0.6 },
+    });
 
     let hoverButton = $(this).find(".c-btn-inner.hover");
 
@@ -353,9 +368,7 @@ function splitBlocks() {
           },
         });
 
-        tl.fromTo(
-          item, { scale: 1 }, { scale: 0.90 }
-        );
+        tl.fromTo(item, { scale: 1 }, { scale: 0.9 });
       }
 
       if (index === 1) {
@@ -379,12 +392,19 @@ function splitBlocks() {
 
 // --- HOME LOADER
 function homeLoader() {
-  let tl = gsap.timeline({ defaults: { ease: panelEase, duration: 1.6 }, delay: 0.2 });
+  let tl = gsap.timeline({
+    defaults: { ease: panelEase, duration: 1.6 },
+    delay: 0.2,
+  });
 
   tl.to(".c-hero-bg-wrap", { autoAlpha: 1 });
   tl.to(".c-hero-gradient", { autoAlpha: 0.05 }, "<");
   tl.from(".c-hero_lt", { autoAlpha: 0, y: "4em" }, "<0.2");
-  tl.from(".c-img-contain.phone", { autoAlpha: 0, y: "16em", rotation: 10, xPercent: 10 }, "<0.2");
+  tl.from(
+    ".c-img-contain.phone",
+    { autoAlpha: 0, y: "16em", rotation: 10, xPercent: 10 },
+    "<0.2"
+  );
 
   tl.addLabel("phoneTrigger", "<0.2");
 
@@ -425,13 +445,13 @@ function heroLittleGuys() {
 
 // --- REVIEWS - MOBILE SLIDER
 function reviewsMobileSlider() {
-  let reviewsSwiper = new Swiper('.swiper.reviews', {
+  let reviewsSwiper = new Swiper(".swiper.reviews", {
     spaceBetween: 24,
     centeredSlides: true,
     speed: 3000,
     autoplay: {
       delay: 4000,
-      reverseDirection: true
+      reverseDirection: true,
     },
     loop: true,
     slidesPerView: 1.25,
@@ -440,16 +460,16 @@ function reviewsMobileSlider() {
 }
 
 function footerDataSlider() {
-  let footerSwiper = new Swiper('.swiper.footer-data', {
+  let footerSwiper = new Swiper(".swiper.footer-data", {
     speed: 600,
     spaceBetween: 16,
-    slidesPerView: 1.10,
+    slidesPerView: 1.1,
     centeredSlides: true,
     loop: true,
     pagination: {
       el: ".swiper-pagination",
       clickable: true,
-    }
+    },
   });
 
   function destroySwiper() {
@@ -459,15 +479,17 @@ function footerDataSlider() {
     }
   }
 
-  window.addEventListener('resize', destroySwiper);
+  window.addEventListener("resize", destroySwiper);
 
   destroySwiper();
 }
 
 // --- MENU MOBILE
 function menuMobile() {
-
-  let tl = gsap.timeline({ paused: true, defaults: { ease: "power4.inOut", duration: 0.8 } });
+  let tl = gsap.timeline({
+    paused: true,
+    defaults: { ease: "power4.inOut", duration: 0.8 },
+  });
 
   let menuLine1 = $(".c-icon.menu rect").eq(0);
   let menuLine2 = $(".c-icon.menu rect").eq(1);
@@ -503,17 +525,18 @@ function menuMobile() {
       }, 400);
     }
   });
-
 }
 
 // --- SPLIT POP-UP
 function splitPopUp() {
   $(".c-split-pu").each(function () {
-
     let popUpTrigger = $(this).find(".c-icon.pop-up");
     let popUpContent = $(this).find(".c-popup");
 
-    let tl = gsap.timeline({ paused: true, defaults: { ease: "power2.inOut", duration: 0.6 } });
+    let tl = gsap.timeline({
+      paused: true,
+      defaults: { ease: "power2.inOut", duration: 0.6 },
+    });
 
     tl.to(popUpTrigger, { rotation: 45 });
     tl.from(popUpContent, { autoAlpha: 0, y: "1.75em" }, 0);
@@ -525,14 +548,16 @@ function splitPopUp() {
     popUpTrigger.on("mouseleave", function () {
       tl.reverse();
     });
-
   });
 }
 
 // --- HEADER DOWNLOAD BUTTON
 function headerDownloadButton() {
   $(".c-nav-link.get-started").each(function () {
-    let tl = gsap.timeline({ paused: true, defaults: { ease: buttonEase, duration: 0.4 } });
+    let tl = gsap.timeline({
+      paused: true,
+      defaults: { ease: buttonEase, duration: 0.4 },
+    });
 
     let downloadEl = $(this).find(".c-download-txt");
     let storeEl = $(this).find(".c-download-store");
@@ -550,7 +575,6 @@ function headerDownloadButton() {
       tl.reverse();
     });
   });
-
 }
 
 // --- SCROLL TO
@@ -558,7 +582,11 @@ $("[scroll-to]").each(function () {
   $(this).click(function () {
     let scrollToElement = $(this).attr("scroll-to");
     gsap.to(".o-page-wrapper", { opacity: 0, duration: 0.2 });
-    gsap.to(window, { duration: 0.2, scrollTo: { y: scrollToElement }, delay: 0.2 });
+    gsap.to(window, {
+      duration: 0.2,
+      scrollTo: { y: scrollToElement },
+      delay: 0.2,
+    });
     gsap.to(".o-page-wrapper", { opacity: 1, duration: 0.1, delay: 0.4 });
   });
 });
